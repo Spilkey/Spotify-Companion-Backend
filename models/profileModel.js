@@ -23,9 +23,10 @@ exports.formatData = function(body){
     length &= body.email ? displayData.push({ heading: 'Email:', value: body.email }) : 0;
     length &= body.product ? displayData.push({ heading: 'Product Type:', value: body.product }) : 0;
     length &= body.type ? displayData.push({ heading: 'User Type:', value: body.type }) : 0;
-    
+   
     let responseBody = {
         'data': body,
+        'missingDataFlag': length;
         'profileData': displayData
     };
     return responseBody;
