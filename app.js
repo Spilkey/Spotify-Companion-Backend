@@ -13,6 +13,8 @@ var cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 
+var log = require('./middleware/log');
+
 var authRouter = require('./routes/authRouter');
 var followingRouter = require('./routes/followingRouter');
 var profileRouter = require('./routes/profileRouter');
@@ -25,6 +27,6 @@ app.use('/auth', authRouter);
 app.use('/follow', followingRouter);
 app.use('/profile', profileRouter);
 
-console.log(`Listening on ${process.env.PORT}`);
+log.info(`Listening on ${process.env.PORT}`);
 
 app.listen(process.env.PORT);

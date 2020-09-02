@@ -1,7 +1,8 @@
 var FollowingModel = require('../models/followingModel');
+var log = require('../middleware/log');
 
 exports.following_data = function (req, res) {
-    console.info("Getting Follower Data");
+    log.info("Getting Follower Data");
     var access_token = req.query.access_token;
     var after = req.query.after ? '&after=' + req.query.after : '';
 
@@ -11,5 +12,4 @@ exports.following_data = function (req, res) {
         resData = FollowingModel.formatFollowingData(data, req);
         res.send(resData);
     });
-
 }
