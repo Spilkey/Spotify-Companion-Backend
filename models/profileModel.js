@@ -17,12 +17,13 @@ exports.getProfileData = async function(access_token){
 
 exports.formatData = function(body){
     let displayData = []; 
-    body.image ? displayData.push({ heading: 'Profile Pic:', value: body.image }) : '';
-    body.display_name ? displayData.push({ heading: 'Display Name:', value: body.display_name }) : '';
-    body.email ? displayData.push({ heading: 'Email:', value: body.email }) : '';
-    // body.external_urls ? displayData.push({ heading: 'Open Spotify:', value : "<a href='" +body.external_urls.spotify + "' target='_blank"+body.external_urls.spotify+"</a>"}) : '';
-    body.product ? displayData.push({ heading: 'Product Type:', value: body.product }) : '';
-    body.type ? displayData.push({ heading: 'User Type:', value: body.type }) : '';
+    let length = false;
+    length &= body.image ? displayData.push({ heading: 'Profile Pic:', value: body.image }) : 0;
+    length &= body.display_name ? displayData.push({ heading: 'Display Name:', value: body.display_name }) : 0;
+    length &= body.email ? displayData.push({ heading: 'Email:', value: body.email }) : 0;
+    length &= body.product ? displayData.push({ heading: 'Product Type:', value: body.product }) : 0;
+    length &= body.type ? displayData.push({ heading: 'User Type:', value: body.type }) : 0;
+    
     let responseBody = {
         'data': body,
         'profileData': displayData
