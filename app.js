@@ -10,6 +10,8 @@
 var express = require('express'); // Express web server framework
 var cors = require('cors');
 
+const dotenv = require('dotenv');
+dotenv.config();
 
 var authRouter = require('./routes/authRouter');
 var followingRouter = require('./routes/followingRouter');
@@ -19,10 +21,10 @@ var app = express();
 
 app.use(cors());
 
-
 app.use('/auth', authRouter);
 app.use('/follow', followingRouter);
 app.use('/profile', profileRouter);
 
-console.log('Listening on 8888');
-app.listen(8888);
+console.log(`Listening on ${process.env.PORT}`);
+
+app.listen(process.env.PORT);

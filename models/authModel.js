@@ -3,6 +3,9 @@ var config = require('../config');
 var fetch = require('node-fetch');
 const { URLSearchParams } = require('url');
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 var client_id = config.client_id;
 var client_secret = config.client_secret;
 
@@ -21,7 +24,7 @@ exports.refreshToken = async function (refresh_token) {
     }
     let response = await fetch(url, authOptions);
     let body = await response.json();
-    return returnBody;
+    return body;
 }
 
 
@@ -32,7 +35,7 @@ exports.swapToken = async function (code) {
     const params = new URLSearchParams();
     params.append('grant_type', 'authorization_code');
     params.append('code', code);
-    params.append('redirect_uri', 'http://localhost:3000');
+    params.append('redirect_uri', process.env.FRONT_END_URL);
     
     var authOptions = {
         headers: {
