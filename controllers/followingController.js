@@ -9,7 +9,7 @@ exports.following_data = function (req, res) {
     var query = '?type=artist&limit=18' + after
 
     FollowingModel.followingData(access_token, query).then(data => {
-        resData = FollowingModel.formatFollowingData(data, req);
+        let resData = FollowingModel.formatFollowingData(data, req);
         res.send(resData);
     });
 }

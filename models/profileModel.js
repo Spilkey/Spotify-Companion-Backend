@@ -1,8 +1,6 @@
 var fetch = require('node-fetch');
-const { response } = require('express');
 
 exports.getProfileData = async function(access_token){
-    var responseBody = {};
     var url = 'https://api.spotify.com/v1/me';
 
     // use the access token to access the Spotify Web API
@@ -25,7 +23,7 @@ exports.formatData = function(body){
     // body.external_urls ? displayData.push({ heading: 'Open Spotify:', value : "<a href='" +body.external_urls.spotify + "' target='_blank"+body.external_urls.spotify+"</a>"}) : '';
     body.product ? displayData.push({ heading: 'Product Type:', value: body.product }) : '';
     body.type ? displayData.push({ heading: 'User Type:', value: body.type }) : '';
-    responseBody = {
+    let responseBody = {
         'data': body,
         'profileData': displayData
     };

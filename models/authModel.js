@@ -10,7 +10,6 @@ var client_id = config.client_id;
 var client_secret = config.client_secret;
 
 exports.refreshToken = async function (refresh_token) {
-    var returnBody = {};
     var url = 'https://accounts.spotify.com/api/token';
     var authOptions = {
         headers: {

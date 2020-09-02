@@ -9,7 +9,7 @@ let logs = ["debug", "info", "notice", "error"];
 function padNumber(number){
     let numberString = number.toString(); 
     if (numberString.length < 2){
-        numberNew = '0' + numberString;
+        let numberNew = '0' + numberString;
         return numberNew;
     } 
     return number
