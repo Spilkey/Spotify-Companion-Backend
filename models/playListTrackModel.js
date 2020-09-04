@@ -61,7 +61,6 @@ async function accumlateTracksFromPromise(promises, access_token){
     promises.forEach(element => {
         allTracks = allTracks.concat(element.items);
     });
-    console.log(allTracks);
     return await formatTrackData(allTracks, access_token)
 }
 
@@ -113,10 +112,8 @@ async function checkUserLikedTrack(trackIds, returnData, access_token){
 }
 
 async function addLikedArrays(responses, returnData){
-    log.info('adding likes together')
     let likedArray = [];
     for(let i=0; i < responses.length; i++){
-        log.info("value is");
         likedArray = likedArray.concat(responses[i]);
     }
     

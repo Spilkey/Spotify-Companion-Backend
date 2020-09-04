@@ -10,8 +10,6 @@ exports.playlists = function (req, res) {
             'data': data
         })
     });
-    
-
 }
 
 exports.playlist = function (req, res) {
@@ -19,8 +17,10 @@ exports.playlist = function (req, res) {
     let access_token = req.query.access_token;
     let playlistId = req.query.playlist_id;
     PLTracksModel.getPlayListTracks(access_token, playlistId).then(data => {
+        data[0].tracks = {};
         res.send({
-            'data': data
+            'data': data[0],
+            'meta-data': data[1]
         })
     });
 }
