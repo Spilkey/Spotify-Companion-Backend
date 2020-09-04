@@ -115,7 +115,7 @@ async function checkUserLikedTrack(trackIds, returnData, access_token){
 async function addLikedArrays(responses, returnData){
     log.info('adding likes together')
     let likedArray = [];
-    for(i=0; i < responses.length; i++){
+    for(let i=0; i < responses.length; i++){
         log.info("value is");
         likedArray = likedArray.concat(responses[i]);
     }
