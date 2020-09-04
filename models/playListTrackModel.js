@@ -1,6 +1,5 @@
 let fetch = require('node-fetch');
 var log = require('../middleware/log');
-const { response } = require('express');
 /**
  * Gets all the Tracks in a playlist, 
  * formats the data,
@@ -126,7 +125,7 @@ async function addLikedArrays(responses, returnData){
 
 function populateLikedTracks(likedArray, returnData){
     if(returnData.length == likedArray.length){
-        for(i = 0; i < returnData.length; i++){
+        for(let i = 0; i < returnData.length; i++){
             returnData[i].isLiked = likedArray[i];
         }
     }

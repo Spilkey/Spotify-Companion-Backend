@@ -1,6 +1,5 @@
 let fetch = require('node-fetch');
 var log = require('../middleware/log');
-const { response } = require('express');
 
 exports.getPlayLists = async function(access_token){
     let url = 'https://api.spotify.com/v1/me/playlists?limit=50';
@@ -41,7 +40,7 @@ function formatPlayListData(data){
 
     let returnData = [];
     data.forEach((elm, i) => {
-        item = {};
+        let item = {};
 
         item.playListId = elm.id;
         item.image = elm.image || null;
