@@ -24,10 +24,11 @@ async function getAllPlayLists(url, items, access_token){
 
 async function recursiveGetPL(data, items, access_token){
     if(data.error){
-        log.error(data.error.error_description)
+        log.error(data.error)
+        console.log(data);
         return data;
     }
-    let newData = [...items, ...data.items]
+    let newData = [...items, ...data.items];
     // if next == null than break recursion
     if(data.next == null){
         return formatPlayListData(newData);
@@ -47,6 +48,7 @@ function formatPlayListData(data){
         item.playListName = elm.name;
         item.playListOwner = elm.owner.id;
         item.playListOwnerType = elm.owner.type;
+        item.playListAmount = elm.tracks.total;
 
         returnData.push(item);
 
