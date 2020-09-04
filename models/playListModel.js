@@ -24,6 +24,10 @@ async function getAllPlayLists(url, items, access_token){
 }
 
 async function recursiveGetPL(data, items, access_token){
+    if(data.error){
+        log.error(data.error.error_description)
+        return data;
+    }
     let newData = [...items, ...data.items]
     // if next == null than break recursion
     if(data.next == null){
