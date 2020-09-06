@@ -69,13 +69,20 @@ async function formatTrackData(data, access_token){
     let trackIds = [];
     data.forEach((elm, i) => {
         let item = {};
-        item.added_at = elm.added_at;
+        item.added_at = elm.added_at.split("T")[0];
         item.added_by = elm.added_by.id;
         item.id = elm.track.id;
         trackIds.push(item.id);
         item.name = elm.track.name;
         item.popularity = elm.track.popularity;
         item.preview = elm.track.preview_url;
+        item.artists = {};
+
+        elm.track.artists.forEach(element => {
+            let key = element.name; 
+            item.artists[key] = element.id;
+
+        });
 
         returnData.push(item);
     });
