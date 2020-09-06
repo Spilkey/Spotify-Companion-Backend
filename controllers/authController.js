@@ -4,12 +4,15 @@ var log = require('../middleware/log');
 // Display list of all Authors.
 exports.refresh_token = function(req, res) {
     log.info("Refreshing Token");
+    console.log(req.query.refresh_token);
     AuthModel.refreshToken(req.query.refresh_token)
     .then((data) => { 
+
         res.send(data);
     })
     .catch(e => {
-        log.error(e)
+        console.error(e);
+        log.error(e + "Auth Controller ERROR: Getting refresh token");
     });
 };
 
