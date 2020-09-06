@@ -19,6 +19,7 @@ var authRouter = require('./routes/authRouter');
 var followingRouter = require('./routes/followingRouter');
 var profileRouter = require('./routes/profileRouter');
 var playlistRouter = require('./routes/playlistRouter');
+var trackRouter = require('./routes/trackRouter');
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.use('/auth', authRouter);
 app.use('/follow', followingRouter);
 app.use('/profile', profileRouter);
 app.use('/playlist', playlistRouter)
+app.use('/tracks', trackRouter);
 
 log.info(`Listening on ${process.env.PORT}`);
 

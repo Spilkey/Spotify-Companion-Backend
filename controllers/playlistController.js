@@ -25,13 +25,5 @@ exports.playlist = function (req, res) {
     });
 }
 
-exports.user_playlists = function (req, res) {
-    log.info("Getting User-Playlists Data");
-    //TODO format track data into easily readable UI object
-    //TODO check if track is liked or not with 
-    // https://api.spotify.com/v1/me/tracks/contains
-    // https://developer.spotify.com/documentation/web-api/reference/library/check-users-saved-tracks/
 
-    
-}
 

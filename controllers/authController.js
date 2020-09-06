@@ -28,7 +28,6 @@ exports.swap_token = function (req, res) {
             }
             res.send(returnBody);
         } else {
-
             let returnBody = {
                 'msg': data.error_description,
                 'error': data.error,
