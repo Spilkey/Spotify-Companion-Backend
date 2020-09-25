@@ -2,7 +2,7 @@ let fetch = require('node-fetch');
 var log = require('../middleware/log');
 
 exports.searchSongs = async function(access_token, query){
-    let url = 'https://api.spotify.com/v1/search?type=track&q=' + query;
+    let url = 'https://api.spotify.com/v1/search?limit=50&type=track&q=' + query;
 
     let data = await search(url, access_token);
 
@@ -10,7 +10,7 @@ exports.searchSongs = async function(access_token, query){
 }
 
 exports.searchPlayLists = async function(access_token, query){
-    let url = 'https://api.spotify.com/v1/search?type=playlist&q=' + query;
+    let url = 'https://api.spotify.com/v1/search?limit=50&type=playlist&q=' + query;
 
     let data = await search(url, access_token);
 
