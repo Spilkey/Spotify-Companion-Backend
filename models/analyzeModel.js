@@ -55,24 +55,42 @@ async function getChunkTrackAnalysis(chunkOfTracks, access_token){
         },
         method: 'get', // *GET, POST, PUT, DELETE, etc.
     }
-    //console.log(chunkOfTracks);
-    for(i = 0; i < chunkOfTracks.length; i++ ){
-        // console.log(chunkOfTracks[i].track.id);
-        featureUrl = `https://api.spotify.com/v1/audio-features/${chunkOfTracks[i].track.id}`
+    // chunking
+    let i,j,temparray,chunk = 100;
+    for (i=0,j=chunkOfTracks.length; i<j; i+=chunk) {
 
+        // mapping big song objects down to just id
+        temparray = (chunkOfTracks.slice(i,i+chunk)).map(songobj => {
+            return songobj.track.id;
+        });
+        // url for getting analysis data 100 at a time
+        featureUrl = `https://api.spotify.com/v1/audio-features/?ids=${temparray.join(",")}`
+
+        // promises
         let featureResponse = await fetch(featureUrl, authOptions);
         let featureData = await featureResponse.json();
+
         trackPromises.push(featureData);
     }
+
     return await Promise.all(trackPromises);
 }
 
 
 exports.formatAnalysisPlaylist = function (trackData){
+
+    let totalData = []
+
+    //first combine all data;
+    trackData.forEach((elm, i) => {
+        totalData = [...totalData, ...elm.audio_features];
+    });
+
+    // setting up base object for analysis data
     let returnData = {
         duration: [],
         key: [],
-        mode: [],
+        // mode: [],
         time_sig: [],
         acousticness: [],
         danceability: [],
@@ -84,20 +102,33 @@ exports.formatAnalysisPlaylist = function (trackData){
         valence: [],
         tempo: [],
     };
-    trackData.forEach((elm, i) => {
-        returnData.duration.push(elm.duration_ms)
+
+    // looping over our accumlated data and putting it into our new object
+    totalData.forEach((elm, i) => {
+        returnData.duration.push((Math.round(elm.duration_ms/10000) * 10000)/1000);
         returnData.key.push(elm.key);
-        returnData.mode.push(elm.mode);
-        returnData.time_sig.push(elm.time_sig);
-        returnData.acousticness.push(elm.acousticness);
-        returnData.danceability.push(elm.danceability);
-        returnData.energy.push(elm.energy);
-        returnData.instrumentalness.push(elm.instrumentalness);
-        returnData.liveness.push(elm.liveness);
-        returnData.loudness.push(elm.loudness);
-        returnData.speechiness.push(elm.speechiness);
-        returnData.valence.push(elm.valence);
-        returnData.tempo.push(elm.tempo);
+        // returnData.mode.push(elm.mode);
+        returnData.time_sig.push(elm.time_signature);
+        returnData.acousticness.push(roundDecimal(elm.acousticness));
+        returnData.danceability.push(roundDecimal(elm.danceability));
+        returnData.energy.push(roundDecimal(elm.energy));
+        returnData.instrumentalness.push(roundDecimal(elm.instrumentalness));
+        returnData.liveness.push(roundDecimal(elm.liveness));
+        returnData.loudness.push(roundDecimal(elm.loudness, 0));
+        returnData.speechiness.push(roundDecimal(elm.speechiness));
+        returnData.valence.push(roundDecimal(elm.valence));
+        returnData.tempo.push(roundNumber(roundDecimal(elm.tempo, 0), 5));
     });
+
+    // returning our promise data
     return returnData;
+}
+
+function roundDecimal(num, deciamls=1){
+    let sigdigs = 10**deciamls;
+    return Math.round((num + Number.EPSILON) * sigdigs) / sigdigs
+}
+
+function roundNumber(num, digit){
+    return Math.ceil(num/digit)*digit;
 }
