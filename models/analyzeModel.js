@@ -109,26 +109,23 @@ exports.formatAnalysisPlaylist = function (trackData){
         returnData.key.push(elm.key);
         // returnData.mode.push(elm.mode);
         returnData.time_sig.push(elm.time_signature);
-        returnData.acousticness.push(roundDecimal(elm.acousticness));
-        returnData.danceability.push(roundDecimal(elm.danceability));
-        returnData.energy.push(roundDecimal(elm.energy));
-        returnData.instrumentalness.push(roundDecimal(elm.instrumentalness));
+        returnData.acousticness.push(roundDecimal(elm.acousticness, 0.02));
+        returnData.danceability.push(roundDecimal(elm.danceability, 0.05));
+        returnData.energy.push(roundDecimal(elm.energy, 0.05));
+        returnData.instrumentalness.push(roundDecimal(elm.instrumentalness, 0.05));
         returnData.liveness.push(roundDecimal(elm.liveness));
-        returnData.loudness.push(roundDecimal(elm.loudness, 0));
-        returnData.speechiness.push(roundDecimal(elm.speechiness));
+        returnData.loudness.push(roundDecimal(elm.loudness, 1));
+        returnData.speechiness.push(roundDecimal(elm.speechiness, 0.02));
         returnData.valence.push(roundDecimal(elm.valence));
-        returnData.tempo.push(roundNumber(roundDecimal(elm.tempo, 0), 5));
+        returnData.tempo.push(roundDecimal(elm.tempo, 5));
     });
 
     // returning our promise data
     return returnData;
 }
 
-function roundDecimal(num, deciamls=1){
-    let sigdigs = 10**deciamls;
-    return Math.round((num + Number.EPSILON) * sigdigs) / sigdigs
-}
-
-function roundNumber(num, digit){
-    return Math.ceil(num/digit)*digit;
+function roundDecimal(num, factor=0.05, decimals=2){
+    let number = Math.round(num / factor) * factor; 
+                     
+    return decimals > 0 ? parseFloat(number.toFixed(decimals)) : Math.trunc(number); 
 }
