@@ -30,7 +30,7 @@ app.use(cors());
 app.use('/auth', authRouter);
 app.use('/follow', followingRouter);
 app.use('/profile', profileRouter);
-app.use('/playlist', playlistRouter)
+app.use('/playlist', playlistRouter);
 app.use('/tracks', trackRouter);
 app.use('/search', searchRouter);
 app.use('/analysis', analysisRouter);
