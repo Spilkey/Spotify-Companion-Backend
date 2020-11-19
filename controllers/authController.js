@@ -19,7 +19,7 @@ exports.refresh_token = function(req, res) {
 // Display detail page for a specific Author.
 exports.swap_token = function (req, res) {
     log.info("Swapping Token");
-    AuthModel.swapToken(req.query.code)
+    AuthModel.swapToken(req.query.code, req.query.redirect)
     .then((data) => {
         if (!data.error) {
             let returnBody = {
