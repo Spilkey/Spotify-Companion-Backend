@@ -29,14 +29,15 @@ exports.refreshToken = async function (refresh_token) {
 }
 
 
-exports.swapToken = async function (code) {
+exports.swapToken = async function (code, fontendUrl) {
     
     var url = 'https://accounts.spotify.com/api/token';
 
     const params = new URLSearchParams();
     params.append('grant_type', 'authorization_code');
     params.append('code', code);
-    params.append('redirect_uri', process.env.FRONT_END_URL);
+    console.log(fontendUrl);
+    params.append('redirect_uri', fontendUrl);
     
     var authOptions = {
         headers: {
