@@ -26,7 +26,7 @@ exports.formatData = function(body){
    
     let responseBody = {
         'data': body,
-        'missingDataFlag': length;
+        'missingDataFlag': length,
         'profileData': displayData
     };
     return responseBody;

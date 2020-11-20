@@ -18,6 +18,10 @@ var log = require('./middleware/log');
 var authRouter = require('./routes/authRouter');
 var followingRouter = require('./routes/followingRouter');
 var profileRouter = require('./routes/profileRouter');
+var playlistRouter = require('./routes/playlistRouter');
+var trackRouter = require('./routes/trackRouter');
+var searchRouter = require('./routes/searchRouter');
+var analysisRouter = require('./routes/analysisRouter');
 
 var app = express();
 
@@ -26,6 +30,10 @@ app.use(cors());
 app.use('/auth', authRouter);
 app.use('/follow', followingRouter);
 app.use('/profile', profileRouter);
+app.use('/playlist', playlistRouter);
+app.use('/tracks', trackRouter);
+app.use('/search', searchRouter);
+app.use('/analysis', analysisRouter);
 
 log.info(`Listening on ${process.env.PORT}`);
 
